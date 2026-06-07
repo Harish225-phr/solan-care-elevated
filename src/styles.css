@@ -4,19 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
+/* JP Hospital Solan — premium healthcare design system */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -59,29 +47,39 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-teal: var(--teal);
+  --color-teal-foreground: var(--teal-foreground);
+  --color-mist: var(--mist);
+  --color-ink: var(--ink);
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-display: "Manrope", "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+  --background: oklch(0.995 0.003 230);
+  --foreground: oklch(0.18 0.04 240);
+  --ink: oklch(0.14 0.04 240);
+  --mist: oklch(0.965 0.012 230);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.18 0.04 240);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.18 0.04 240);
+  --primary: oklch(0.48 0.13 245);
+  --primary-foreground: oklch(0.995 0.003 230);
+  --teal: oklch(0.68 0.12 195);
+  --teal-foreground: oklch(0.14 0.04 240);
+  --secondary: oklch(0.955 0.018 220);
+  --secondary-foreground: oklch(0.22 0.05 245);
+  --muted: oklch(0.965 0.012 230);
+  --muted-foreground: oklch(0.5 0.03 240);
+  --accent: oklch(0.92 0.04 200);
+  --accent-foreground: oklch(0.22 0.05 245);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.995 0.003 230);
+  --border: oklch(0.92 0.012 230);
+  --input: oklch(0.92 0.012 230);
+  --ring: oklch(0.55 0.13 245);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +138,69 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
+
+@utility glass {
+  background: color-mix(in oklab, white 70%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid color-mix(in oklab, white 60%, transparent);
+}
+
+@utility glass-dark {
+  background: color-mix(in oklab, var(--ink) 70%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid color-mix(in oklab, white 12%, transparent);
+}
+
+@utility gradient-hero {
+  background: radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--teal) 35%, transparent), transparent 60%),
+              radial-gradient(900px 500px at 90% 10%, color-mix(in oklab, var(--primary) 25%, transparent), transparent 60%),
+              linear-gradient(180deg, var(--background), var(--mist));
+}
+
+@utility gradient-text {
+  background: linear-gradient(120deg, var(--primary), var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility shadow-soft {
+  box-shadow: 0 1px 0 0 color-mix(in oklab, var(--primary) 8%, transparent),
+              0 10px 40px -12px color-mix(in oklab, var(--primary) 20%, transparent);
+}
+
+@utility shadow-glow {
+  box-shadow: 0 10px 60px -10px color-mix(in oklab, var(--primary) 45%, transparent);
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@utility animate-float { animation: float-y 6s ease-in-out infinite; }
+@utility animate-fade-up { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
